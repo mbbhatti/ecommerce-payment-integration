@@ -86,51 +86,51 @@ This Laravel module simulates a checkout system with Stripe payment integration.
     }
     ```
 
-   2. **Checkout**
+2. **Create Order**
 
-      POST to `/api/order` with `Authorization: Bearer <token>` header and:
+   POST to `/api/order` with `Authorization: Bearer <token>` header and:
 
-       ```json
-       {
-         "amount": 100.00
-       }
-       ```
-      **Validation Error Response:**
+    ```json
+    {
+      "amount": 100.00
+    }
+    ```
+   **Validation Error Response:**
 
-      If the `amount` field is missing or invalid, you might receive a response like this:
+   If the `amount` field is missing or invalid, you might receive a response like this:
 
-       ```json
-       {
-         "errors": {
-           "amount": [
-               "The amount field is required."
-           ]
+    ```json
+    {
+      "errors": {
+        "amount": [
+            "The amount field is required."
+        ]
+      }
+    }
+    ```
+
+   **Success Response:**
+
+    ```json
+    {
+         "order": {
+             "orderId": 1,
+             "totalAmount": 78.20,
+             "paymentStatus": "paid",
+             "user": "Test User"
          }
-       }
-       ```
+    }
+    ```
 
-      **Success Response:**
+   **Failure Response:**
 
-       ```json
-       {
-            "order": {
-                "orderId": 1,
-                "totalAmount": 78.20,
-                "paymentStatus": "paid",
-                "user": "Test User"
-            }
-       }
-       ```
-
-      **Failure Response:**
-
-       ```json
-       {
-            "order": {
-                "orderId": 2,
-                "totalAmount": 78.2001,
-                "paymentStatus": "failed",
-                "user": "Test User"
-           }
-       }
-       ```
+    ```json
+    {
+         "order": {
+             "orderId": 2,
+             "totalAmount": 78.2001,
+             "paymentStatus": "failed",
+             "user": "Test User"
+        }
+    }
+    ```
